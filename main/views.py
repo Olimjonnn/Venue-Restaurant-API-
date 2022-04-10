@@ -96,6 +96,12 @@ class ClientView(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
+class CashView(viewsets.ModelViewSet):
+    queryset = Cash.objects.all()
+    serializer_class = CashSerializer
+
+    http_method_names = ['get']
+
 
 class OrderView(viewsets.ModelViewSet):
     queryset = Order.objects.all()
@@ -111,6 +117,9 @@ class OrderView(viewsets.ModelViewSet):
             client = Client.objects.get(id=clinet_id)
             client.debt += int(quantity)*int(price)
             client.save()
+            cash = Cash.objects.first()
+            cash.cash += int(quantity)*int(price)
+            cash.save()
             return Response({"Ordered"})
         except Exception as arr:
             data = {

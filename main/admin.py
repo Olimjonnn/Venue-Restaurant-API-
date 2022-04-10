@@ -12,4 +12,5 @@ admin.site.register(Client)
 admin.site.register(Order)
 admin.site.register(Reservation)
 admin.site.register(AboutUs)
+admin.site.register(Cash)
 

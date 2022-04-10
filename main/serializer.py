@@ -47,6 +47,11 @@ class ClientSerializer(serializers.ModelSerializer):
         model = Client
         fields = '__all__'
 
+class CashSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cash
+        fields = '__all__'
+
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
