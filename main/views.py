@@ -109,17 +109,14 @@ class OrderView(viewsets.ModelViewSet):
 
     def create(self, request):
         try:
-            clinet_id = request.POST.get("client")
+            client_id = request.POST.get("client")
             food_id = request.POST.get("food")
             quantity = request.POST.get("quantity")
             price = request.POST.get("price")
-            Order.objects.create(client_id=clinet_id, food_id=food_id, quantity=quantity, price=price)
-            client = Client.objects.get(id=clinet_id)
+            Order.objects.create(client_id=client_id, food_id=food_id, quantity=quantity, price=price)
+            client = Client.objects.get(id=client_id)
             client.debt += int(quantity)*int(price)
             client.save()
-            cash = Cash.objects.first()
-            cash.cash += int(quantity)*int(price)
-            cash.save()
             return Response({"Ordered"})
         except Exception as arr:
             data = {
@@ -127,7 +124,21 @@ class OrderView(viewsets.ModelViewSet):
             }
             return Response(data)
 
-
+    @action(['POST'], detail=False)
+    def delete(self, request):
+        client_id = request.POST.get("client")
+        food_id = request.POST.get("food")
+        quantity = request.POST.get("quantity")
+        price = request.POST.get("price")
+        price = request.POST.get("price")
+        Order.objects.create(client_id=client_id, food_id=food_id, quantity=quantity,price=price)
+        client = Client.objects.get(id=client_id)
+        client.debt -= int(quantity)*int(price)        
+        client.save()
+        cash = Cash.objects.first()
+        cash.cash += int(quantity)*int(price)
+        cash.save()
+        return Response("Deleted")
     @action(['GET'], detail=False)
     def sss(self, request):
         client = request.GET.get('client')
