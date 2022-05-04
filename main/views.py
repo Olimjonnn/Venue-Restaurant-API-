@@ -5,6 +5,9 @@ from rest_framework import viewsets
 from main.serializer import *
 from main.models import *
 
+# Functions
+
+# Logo Get
 
 class LogoView(viewsets.ModelViewSet):
     queryset = Logo.objects.all()
@@ -16,6 +19,8 @@ class LogoView(viewsets.ModelViewSet):
         log = LogoSerializer(logo)
         return Response(log.data)
 
+# Slider Get
+
 class SliderView(viewsets.ModelViewSet):
     queryset = Slider.objects.all()
     serializer_class = SliderSerializer
@@ -25,6 +30,8 @@ class SliderView(viewsets.ModelViewSet):
         logo = Slider.objects.last()
         log = SliderSerializer(logo)
         return Response(log.data)
+
+# Info Get
 
 class InfoView(viewsets.ModelViewSet):
     queryset = Info.objects.all()
@@ -36,6 +43,8 @@ class InfoView(viewsets.ModelViewSet):
         log = InfoSerializer(logo)
         return Response(log.data)
 
+# Video Get
+
 class VideoView(viewsets.ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
@@ -45,6 +54,8 @@ class VideoView(viewsets.ModelViewSet):
         logo = Video.objects.last()
         log = VideoSerializer(logo)
         return Response(log.data)
+
+# Categories GET
 
 class CategoryView(viewsets.ModelViewSet):
     queryset = Category.objects.all()
